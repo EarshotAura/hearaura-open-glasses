@@ -51,10 +51,10 @@ release here would mean redoing your changes by hand.
    reason.
 2. At https://graftfork.com/app, install Graft's GitHub app on your fork
    and add the fork. Graft works out that it comes from this repository.
-3. Each time a release is tagged here, Graft moves your changes onto it
-   and runs the checks. If everything lands, your fork is updated. If
-   something conflicts, your fork stays where it was and Graft tells you
-   what clashed.
+3. Each time a release is tagged here, Graft moves your changes onto it.
+   If every change lands, you get the moved copy. If one does not, your
+   fork stays exactly where it was and Graft tells you which change
+   clashed and why.
 4. When one of your changes is worth sharing, such as a new recipe or a
    fix to the firmware, ask Graft to send it upstream. It prepares that one
    change on its own, on the current release, with the pull request text
