@@ -1,0 +1,29 @@
+{
+ "id": "screen-only",
+ "name": "Caption screen",
+ "summary": "A small screen that shows HearAura's captions. The place to start: about an hour, no soldering.",
+ "status": "designed",
+ "by": "HearAura",
+ "soldering": "none",
+ "gives": [
+  "captions"
+ ],
+ "parts": [
+  "xiao-sense",
+  "oled",
+  "grove-cable",
+  "breadboard",
+  "jumpers",
+  "usb-cable",
+  "power-bank"
+ ],
+ "optional": [],
+ "lessons": [
+  "parts",
+  "wake",
+  "screen",
+  "cord"
+ ],
+ "notes": "Uses the simplest part of the firmware, so it has the best chance of working first time. A plain XIAO ESP32-S3 (no camera) works too.",
+ "builds": []
+}

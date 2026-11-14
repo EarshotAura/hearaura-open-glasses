@@ -1,0 +1,92 @@
+{
+ "xiao-sense": {
+  "name": "Seeed XIAO ESP32-S3 Sense, pre-soldered",
+  "what": "The brain: a computer the size of a thumbnail, with a camera. \"Pre-soldered\" means its legs are already on.",
+  "price": 15
+ },
+ "oled": {
+  "name": "Seeed Grove OLED 0.96\"",
+  "what": "The screen. As big as a postage stamp.",
+  "price": 6
+ },
+ "grove-cable": {
+  "name": "Grove to jumper-pin cable",
+  "what": "Four coloured wires from the screen to the breadboard.",
+  "price": 4
+ },
+ "breadboard": {
+  "name": "Half-size breadboard",
+  "what": "A board full of holes. Push parts in and they connect.",
+  "price": 5
+ },
+ "jumpers": {
+  "name": "Jumper wires, male to male",
+  "what": "Short wires with a pin on each end.",
+  "price": 6
+ },
+ "usb-cable": {
+  "name": "USB-C cable that carries data",
+  "what": "Some cables only charge. One that came with a phone usually works.",
+  "price": 0
+ },
+ "power-bank": {
+  "name": "USB power bank or phone charger",
+  "what": "Power without the computer. You probably have one.",
+  "price": 0
+ },
+ "lens": {
+  "name": "Plano-convex lens, 20 mm wide, about 50 mm focal length",
+  "what": "A small magnifying lens.",
+  "price": 5
+ },
+ "mirror": {
+  "name": "First-surface mirror, about 25 by 20 mm",
+  "what": "A mirror with the shiny part on the front.",
+  "price": 8
+ },
+ "beam-splitter": {
+  "name": "Beam splitter, 30 by 30 mm, 50/50",
+  "what": "Glass that is half mirror and half window.",
+  "price": 17
+ },
+ "bno085": {
+  "name": "Adafruit BNO085 (product 4754)",
+  "what": "A motion sensor. It knows which way it points.",
+  "price": 27
+ },
+ "qwiic-cable": {
+  "name": "STEMMA QT (Qwiic) to jumper-pin cable",
+  "what": "Plugs into the motion sensor. No soldering.",
+  "price": 1
+ },
+ "mics": {
+  "name": "4 INMP441 microphones, pins already soldered",
+  "what": "Check the listing says the pins are soldered on.",
+  "price": 12
+ },
+ "frames": {
+  "name": "Glasses you do not mind taping things to",
+  "what": "Old glasses or safety glasses.",
+  "price": 3
+ },
+ "lipo": {
+  "name": "LiPo battery, 500 mAh, with a protection circuit",
+  "what": "A flat rechargeable battery.",
+  "price": 5
+ },
+ "switch": {
+  "name": "Small slide switch and thin wire",
+  "what": "An on and off switch.",
+  "price": 3
+ },
+ "display-glasses": {
+  "name": "Display glasses with a USB-C cable (Rokid Max, Xreal Air, Viture), used",
+  "what": "A two-eye screen you wear. It plugs into the iPhone.",
+  "price": 150
+ },
+ "respeaker-flex": {
+  "name": "Seeed reSpeaker Flex XVF3800 Linear-4 with XIAO ESP32S3",
+  "what": "Four microphones on a strip, with a chip that finds voice direction itself.",
+  "price": 58
+ }
+}

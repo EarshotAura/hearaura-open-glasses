@@ -1,0 +1,18 @@
+{
+ "id": "your-recipe-name",
+ "name": "A short name",
+ "summary": "One or two sentences: what it is and who it is for.",
+ "status": "idea",
+ "by": "Your name or handle",
+ "soldering": "none",
+ "gives": [
+  "captions"
+ ],
+ "parts": [
+  "xiao-sense"
+ ],
+ "optional": [],
+ "lessons": [],
+ "notes": "Anything a builder should know: what is different, what was hard, what is untested.",
+ "builds": []
+}

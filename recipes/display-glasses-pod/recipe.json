@@ -1,0 +1,44 @@
+{
+ "id": "display-glasses-pod",
+ "name": "Display glasses with a sensor pod",
+ "summary": "Bought display glasses show captions beside whoever is speaking. A small pod you build tells the iPhone where voices are.",
+ "status": "designed",
+ "by": "HearAura",
+ "soldering": "last step",
+ "gives": [
+  "captions",
+  "two-eye-display",
+  "head-direction",
+  "voice-direction",
+  "distance",
+  "captions-by-speaker"
+ ],
+ "parts": [
+  "display-glasses",
+  "xiao-sense",
+  "breadboard",
+  "jumpers",
+  "usb-cable",
+  "power-bank",
+  "bno085",
+  "qwiic-cable",
+  "mics",
+  "lipo",
+  "switch"
+ ],
+ "optional": [
+  "oled",
+  "grove-cable"
+ ],
+ "lessons": [
+  "parts",
+  "wake",
+  "plug",
+  "look",
+  "ears",
+  "eye",
+  "wear"
+ ],
+ "notes": "The display glasses plug into the iPhone and need an iPhone that sends video over USB-C (iPhone 15 or later, except iPhone Air and 16e). The pod's little screen is optional but makes the checks much easier.",
+ "builds": []
+}

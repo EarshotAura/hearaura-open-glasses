@@ -1,0 +1,28 @@
+{
+ "id": "respeaker-flex",
+ "name": "Display glasses with a ready-made microphone strip",
+ "summary": "As the sensor pod, with a bought four-microphone strip that finds voice direction itself. Less wiring.",
+ "status": "idea",
+ "by": "HearAura",
+ "soldering": "some",
+ "gives": [
+  "captions",
+  "two-eye-display",
+  "head-direction",
+  "voice-direction",
+  "captions-by-speaker"
+ ],
+ "parts": [
+  "display-glasses",
+  "respeaker-flex",
+  "bno085",
+  "qwiic-cable",
+  "usb-cable",
+  "lipo",
+  "switch"
+ ],
+ "optional": [],
+ "lessons": [],
+ "notes": "Not started. The firmware does not support this board yet, the strip's size against a glasses frame is unchecked, and a straight line of microphones cannot tell ahead from behind. A good first recipe for someone to take on.",
+ "builds": []
+}

@@ -1,0 +1,47 @@
+{
+ "id": "one-eye",
+ "name": "One-eye caption glasses",
+ "summary": "Captions floating in front of one eye, with the glasses knowing where each voice is and how far away the speaker is.",
+ "status": "designed",
+ "by": "HearAura",
+ "soldering": "last step",
+ "gives": [
+  "captions",
+  "see-through",
+  "head-direction",
+  "voice-direction",
+  "distance"
+ ],
+ "parts": [
+  "xiao-sense",
+  "oled",
+  "grove-cable",
+  "breadboard",
+  "jumpers",
+  "usb-cable",
+  "power-bank",
+  "lens",
+  "mirror",
+  "beam-splitter",
+  "bno085",
+  "qwiic-cable",
+  "mics",
+  "frames",
+  "lipo",
+  "switch"
+ ],
+ "optional": [],
+ "lessons": [
+  "parts",
+  "wake",
+  "screen",
+  "cord",
+  "float",
+  "look",
+  "ears",
+  "eye",
+  "wear"
+ ],
+ "notes": "Everything on one board. The one-eye screen shows the speaker's number and which side they are on; it cannot float a caption beside them.",
+ "builds": []
+}
