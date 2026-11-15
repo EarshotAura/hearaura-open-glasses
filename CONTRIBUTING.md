@@ -24,7 +24,7 @@ different parts, a different display, a different board? That is a recipe.
    | `status` | `idea`, `designed`, `partly built` or `built`. Be honest: "built" needs an entry in `builds` |
    | `by` | Your name or handle |
    | `soldering` | `none`, `last step`, `some` or `yes` |
-   | `gives` | What a builder ends up with, from the list in `scripts/check.py` |
+   | `gives` | What a builder ends up with, from the list in `scripts/check.py`. The guide's chooser sorts recipes by these and by `soldering`, so be exact: `ahead-behind` only if it can tell a voice in front from one behind |
    | `parts`, `optional` | Part ids from `parts.json`. Add new parts there, with a plain-words "what", a rough price, and a `buy` list (see below) |
    | `lessons` | Which of the guide's lessons apply, in order. Leave empty if none fit yet |
    | `notes` | What is different, what was hard, what is untested |

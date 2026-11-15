@@ -336,6 +336,7 @@
     "two-eye-display",
     "head-direction",
     "voice-direction",
+    "ahead-behind",
     "distance",
     "captions-by-speaker"
    ],
@@ -425,6 +426,7 @@
     "see-through",
     "head-direction",
     "voice-direction",
+    "ahead-behind",
     "distance"
    ],
    "parts": [

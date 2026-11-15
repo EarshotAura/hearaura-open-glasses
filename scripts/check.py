@@ -13,7 +13,7 @@ import json, pathlib, sys
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 STATUS = ["idea", "designed", "partly built", "built"]
 SOLDERING = ["none", "last step", "some", "yes"]
-GIVES = ["captions", "see-through", "two-eye-display", "head-direction", "voice-direction", "distance", "captions-by-speaker"]
+GIVES = ["captions", "see-through", "two-eye-display", "head-direction", "voice-direction", "ahead-behind", "distance", "captions-by-speaker"]
 LESSONS = ["parts", "wake", "screen", "cord", "float", "plug", "look", "ears", "eye", "wear",
            "strip", "stripwake", "stripears", "striplook", "stripwear", "row", "rowwear", "rowglasses"]
 
