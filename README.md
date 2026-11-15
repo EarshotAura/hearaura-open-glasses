@@ -23,6 +23,7 @@ recipe merged here shows up there.
 | [One-eye caption glasses](recipes/one-eye/recipe.json) | Captions in front of one eye; knows where voices are and how far | designed |
 | [Display glasses with a sensor pod](recipes/display-glasses-pod/recipe.json) | Bought display glasses show captions beside each speaker | designed |
 | [Ready-made microphone strip](recipes/respeaker-flex/recipe.json) | The pod with less wiring | designed, not yet built |
+| [Homemade microphone strip](recipes/homemade-strip/recipe.json) | The strip, made from four microphones on a ruler; no soldering | designed, not yet built |
 
 "Designed" means written down and not yet built by anyone. If you build
 one, tell us: that is the most useful thing you can add.
@@ -32,12 +33,13 @@ one, tell us: that is the most useful thing you can add.
 | Path | What it is |
 |---|---|
 | `recipes/` | One folder per recipe, and `index.json`, the file the guide reads |
-| `parts.json` | Every part any recipe uses: name, what it is, rough price |
+| `parts.json` | Every part any recipe uses: name, what it is, price, and where to buy it |
 | `firmware/` | The program for a Seeed XIAO ESP32-S3 (Sense), a PlatformIO project |
 | `docs/PROTOCOL.md` | The Bluetooth link between the glasses and HearAura |
 | `docs/DESIGN-NOTES.md` | Why the parts were chosen, wiring, and what "3D" honestly means |
 | `tests/test_doa.c` | Runs the direction sums on simulated sound |
 | `scripts/check.py` | Checks every recipe and rebuilds `recipes/index.json` |
+| `scripts/find_parts.py` | Looks each part up at its shops and writes back today's price and whether it is in stock |
 
 ## One program for every recipe
 

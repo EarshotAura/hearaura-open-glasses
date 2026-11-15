@@ -1,0 +1,45 @@
+{
+ "id": "homemade-strip",
+ "name": "Display glasses with a homemade microphone strip",
+ "summary": "The bought microphone strip, made yourself: four small microphones taped along a ruler. Cheaper, no soldering, and the camera adds how far away the speaker is.",
+ "status": "designed",
+ "by": "HearAura",
+ "soldering": "none",
+ "gives": [
+  "captions",
+  "two-eye-display",
+  "head-direction",
+  "voice-direction",
+  "distance",
+  "captions-by-speaker"
+ ],
+ "parts": [
+  "display-glasses",
+  "xiao-sense",
+  "breadboard",
+  "jumpers",
+  "jumpers-fm",
+  "usb-cable",
+  "power-bank",
+  "bno085",
+  "qwiic-cable",
+  "mics",
+  "ruler",
+  "cap"
+ ],
+ "optional": [
+  "oled",
+  "grove-cable"
+ ],
+ "lessons": [
+  "parts",
+  "wake",
+  "plug",
+  "look",
+  "row",
+  "eye",
+  "rowwear"
+ ],
+ "notes": "Nobody has built it yet. The direction sums for a row are tested on simulated sound, and the firmware builds, but it has not run on a board. A straight row of microphones tells left from right, not ahead from behind. The little screen is optional but makes the checks much easier. The display glasses need an iPhone that sends video over USB-C (iPhone 15 or later, except iPhone Air and 16e).",
+ "builds": []
+}

@@ -15,7 +15,7 @@ STATUS = ["idea", "designed", "partly built", "built"]
 SOLDERING = ["none", "last step", "some", "yes"]
 GIVES = ["captions", "see-through", "two-eye-display", "head-direction", "voice-direction", "distance", "captions-by-speaker"]
 LESSONS = ["parts", "wake", "screen", "cord", "float", "plug", "look", "ears", "eye", "wear",
-           "strip", "stripwake", "stripears", "striplook", "stripwear"]
+           "strip", "stripwake", "stripears", "striplook", "stripwear", "row", "rowwear"]
 
 def main():
     parts = json.loads((ROOT / "parts.json").read_text())
@@ -23,6 +23,9 @@ def main():
     for part, entry in parts.items():
         if not all(key in entry for key in ("name", "what", "price")):
             problems.append(f"parts.json: {part} needs name, what and price")
+        for entry in entry.get("buy", []):
+            if not entry.get("shop") or not str(entry.get("url", "")).startswith("https://"):
+                problems.append(f"parts.json: {part} has a \"buy\" entry without a shop or an https link")
     for folder in sorted((ROOT / "recipes").iterdir()):
         if not folder.is_dir() or folder.name.startswith("_"):
             continue

@@ -68,6 +68,30 @@ static float doa_bearing(const int16_t *fl, const int16_t *fr, const int16_t *rl
   return atan2f(x, y) * 57.29578f;
 }
 
+// Bearing from four microphones in one straight row across the head:
+// an outer pair `outer_m` apart and an inner pair `inner_m` apart, each
+// given left then right. A row tells left from right but not ahead from
+// behind, so the answer is always between -90 and 90. The wide pair
+// measures more finely; the narrow pair is the check, because an echo
+// rarely fools both the same way. Each pair is only compared with itself,
+// so the two pairs do not have to be sampled in step with each other.
+static float doa_row(const int16_t *ol, const int16_t *orr, const int16_t *il, const int16_t *ir,
+                     int n, float sample_rate, float outer_m, float inner_m, float min_quality,
+                     float *quality) {
+  int lagO = (int)ceilf(outer_m / DOA_SPEED_OF_SOUND * sample_rate) + 1;
+  int lagI = (int)ceilf(inner_m / DOA_SPEED_OF_SOUND * sample_rate) + 1;
+  float q1, q2;
+  float xo = doa_delay(orr, ol, n, lagO, &q1) / sample_rate * DOA_SPEED_OF_SOUND / outer_m;
+  float xi = doa_delay(ir, il, n, lagI, &q2) / sample_rate * DOA_SPEED_OF_SOUND / inner_m;
+  float q = 0.5f * (q1 + q2);
+  if (quality) *quality = q;
+  if (q < min_quality || fabsf(xo - xi) > 0.5f) return NAN;
+  float x = 0.75f * xo + 0.25f * xi;
+  if (x > 1) x = 1;
+  if (x < -1) x = -1;
+  return asinf(x) * 57.29578f;
+}
+
 // True when a block is loud enough over the running noise floor to be
 // speech worth locating. `floor_rms` is updated slowly on quiet blocks.
 static int doa_is_voice(const int16_t *x, int n, float *floor_rms) {

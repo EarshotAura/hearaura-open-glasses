@@ -18,6 +18,9 @@
 //   Mics  D0=1 clock (SCK), D1=2 word select (WS), all four microphones
 //         D2=3 data from the front pair, D10=9 data from the rear pair
 //         left microphone of a pair: L/R to GND; right: L/R to 3V3
+//   Row   a wire from D3=4 to GND says the four microphones are in one
+//         straight row instead of a rectangle: the two end microphones are
+//         then the "front" pair (D2) and the two middle ones the "rear" (D10)
 //
 // On a reSpeaker Flex board the XIAO is already joined to the strip's chip:
 //   I2C   the same D4/D5 (this is Wire's default; Seeed does not print it)
@@ -44,6 +47,10 @@
 // Measure your build (metres) once the microphones are on the glasses.
 static const float MIC_WIDTH = 0.14f;      // left microphones to right microphones
 static const float MIC_DEPTH = 0.09f;      // front microphones to rear microphones
+// Microphones in a row (wire from D3 to GND): end to end, and between the
+// two middle ones. The guide spaces them 4 cm apart.
+static const float ROW_OUTER = 0.12f;
+static const float ROW_INNER = 0.04f;
 // If "ahead" and "behind" come out swapped or skewed, clap from exactly one
 // side, read the "front/rear delay" line on the serial monitor, and put that
 // number here so it reads 0.
@@ -54,6 +61,7 @@ static const int REAR_OFFSET_SAMPLES = 0;
 
 static const int PIN_SDA = 5, PIN_SCL = 6;
 static const int PIN_MIC_CLOCK = 1, PIN_MIC_WS = 2, PIN_MIC_FRONT = 3, PIN_MIC_REAR = 9;
+static const int PIN_ROW = 4;               // D3 to GND: microphones in a row
 // reSpeaker Flex: fixed by that board.
 static const int PIN_STRIP_CLOCK = 8, PIN_STRIP_WS = 7, PIN_STRIP_SOUND = 43;
 static const uint8_t STRIP_ADDRESS = 0x2C;
@@ -70,7 +78,7 @@ static NimBLECharacteristic *sensorPort = nullptr;
 
 // What was found at start-up.
 static bool hasScreen = false, hasMotion = false, hasFrontMics = false, hasRearMics = false, hasCamera = false;
-static bool hasStrip = false;
+static bool hasStrip = false, micsInRow = false;
 static volatile bool phoneConnected = false;
 
 // Captions from the phone.
@@ -153,7 +161,8 @@ static void drawStatus() {
   oled.setCursor(0, 24);  oled.print(phoneConnected ? "phone: connected" : "phone: waiting");
   oled.setCursor(0, 36);  oled.print("motion: "); oled.print(hasMotion ? "yes" : "no");
   oled.setCursor(0, 48);  oled.print("ears: ");
-  oled.print(hasStrip ? "strip" : hasFrontMics && hasRearMics ? "4" : hasFrontMics ? "2 (front)" : "none");
+  oled.print(hasStrip ? "strip" : hasFrontMics && hasRearMics ? (micsInRow ? "4 (row)" : "4")
+             : hasFrontMics ? (micsInRow ? "2 (row)" : "2 (front)") : "none");
   oled.setCursor(72, 36); oled.print("eye: "); oled.print(hasCamera ? "yes" : "no");
   oled.setCursor(0, 60);
   if (millis() - voiceAt < 1500 && !isnan(voiceDeg)) {
@@ -266,14 +275,17 @@ static void soundTask(void *) {
     if (!front || !doa_is_voice(fl, MIC_BLOCK, &floorRms)) continue;
 
     float found = NAN, quality = 0;
-    if (rear) {
+    if (rear && micsInRow) {
+      found = doa_row(fl, fr, rl, rr, MIC_BLOCK, MIC_RATE, ROW_OUTER, ROW_INNER, 0.35f, &quality);
+    } else if (rear) {
       found = doa_bearing(fl, fr, rl, rr, MIC_BLOCK, MIC_RATE, MIC_WIDTH, MIC_DEPTH, 0.35f, &quality);
     } else {
       // Two microphones tell left from right, but not ahead from behind:
       // the answer is given as if the voice were ahead.
-      int lag = (int)ceilf(MIC_WIDTH / DOA_SPEED_OF_SOUND * MIC_RATE) + 1;
+      float width = micsInRow ? ROW_OUTER : MIC_WIDTH;
+      int lag = (int)ceilf(width / DOA_SPEED_OF_SOUND * MIC_RATE) + 1;
       float delay = doa_delay(fr, fl, MIC_BLOCK, lag, &quality);
-      float x = delay / MIC_RATE * DOA_SPEED_OF_SOUND / MIC_WIDTH;
+      float x = delay / MIC_RATE * DOA_SPEED_OF_SOUND / width;
       if (quality >= 0.35f) found = asinf(constrain(x, -1.0f, 1.0f)) * 57.29578f;
     }
     if (isnan(found)) continue;
@@ -283,7 +295,7 @@ static void soundTask(void *) {
     if (millis() - lastPrint > 300) {
       lastPrint = millis();
       Serial.printf("voice at %.0f degrees (match %.2f)", found, quality);
-      if (rear) {
+      if (rear && !micsInRow) {
         float q;
         int lagD = (int)ceilf(MIC_DEPTH / DOA_SPEED_OF_SOUND * MIC_RATE) + 1;
         Serial.printf(", front/rear delay %.1f", doa_delay(fl, rl, MIC_BLOCK, lagD + 8, &q));
@@ -421,6 +433,9 @@ static bool onBus(uint8_t address) {
 void setup() {
   Serial.begin(115200);
   Wire.begin(PIN_SDA, PIN_SCL);
+  pinMode(PIN_ROW, INPUT_PULLUP);
+  delay(5);
+  micsInRow = digitalRead(PIN_ROW) == LOW;
   hasStrip = onBus(STRIP_ADDRESS);
   // The strip's chip has not been checked at the faster speed.
   Wire.setClock(hasStrip ? 100000 : 400000);
@@ -441,7 +456,7 @@ void setup() {
   if (hasCamera) xTaskCreatePinnedToCore(cameraTask, "camera", 16384, NULL, 1, NULL, 0);
   startLink();
 
-  Serial.printf("HearAura Glasses. screen:%d motion:%d camera:%d strip:%d\n", hasScreen, hasMotion, hasCamera, hasStrip);
+  Serial.printf("HearAura Glasses. screen:%d motion:%d camera:%d strip:%d row:%d\n", hasScreen, hasMotion, hasCamera, hasStrip, micsInRow);
   draw();
 }
 

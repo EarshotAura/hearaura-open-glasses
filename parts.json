@@ -2,27 +2,97 @@
  "xiao-sense": {
   "name": "Seeed XIAO ESP32-S3 Sense, pre-soldered",
   "what": "The brain: a computer the size of a thumbnail, with a camera. \"Pre-soldered\" means its legs are already on.",
-  "price": 15
+  "price": 21,
+  "buy": [
+   {
+    "shop": "Seeed",
+    "url": "https://www.seeedstudio.com/Seeed-Studio-XIAO-ESP32S3-Sense-Pre-Soldered-p-6335.html",
+    "price": 20.99,
+    "stock": true,
+    "checked": "2026-11-14"
+   },
+   {
+    "shop": "Amazon",
+    "url": "https://www.amazon.com/s?k=Seeed+XIAO+ESP32S3+Sense+pre-soldered",
+    "search": true
+   }
+  ]
  },
  "oled": {
   "name": "Seeed Grove OLED 0.96\"",
   "what": "The screen. As big as a postage stamp.",
-  "price": 6
+  "price": 7,
+  "buy": [
+   {
+    "shop": "Seeed",
+    "url": "https://www.seeedstudio.com/Grove-OLED-Display-0-96-SSD1315-p-4294.html",
+    "price": 6.99,
+    "stock": true,
+    "checked": "2026-11-14"
+   },
+   {
+    "shop": "Amazon",
+    "url": "https://www.amazon.com/s?k=Grove+OLED+0.96+SSD1315",
+    "search": true
+   }
+  ]
  },
  "grove-cable": {
   "name": "Grove to jumper-pin cable",
   "what": "Four coloured wires from the screen to the breadboard.",
-  "price": 4
+  "price": 3,
+  "buy": [
+   {
+    "shop": "Seeed",
+    "url": "https://www.seeedstudio.com/Grove-4-pin-Male-Jumper-to-Grove-4-pin-Conversion-Cable-5-PCs-per-Pack.html",
+    "price": 2.99,
+    "stock": true,
+    "checked": "2026-11-14"
+   },
+   {
+    "shop": "Amazon",
+    "url": "https://www.amazon.com/s?k=Grove+4+pin+male+jumper+conversion+cable",
+    "search": true
+   }
+  ]
  },
  "breadboard": {
   "name": "Half-size breadboard",
   "what": "A board full of holes. Push parts in and they connect.",
-  "price": 5
+  "price": 5,
+  "buy": [
+   {
+    "shop": "Adafruit",
+    "url": "https://www.adafruit.com/product/64",
+    "price": 4.95,
+    "stock": true,
+    "checked": "2026-11-14"
+   },
+   {
+    "shop": "Amazon",
+    "url": "https://www.amazon.com/s?k=half+size+breadboard+400+tie+points",
+    "search": true
+   }
+  ]
  },
  "jumpers": {
   "name": "Jumper wires, male to male",
   "what": "Short wires with a pin on each end.",
-  "price": 6
+  "price": 4,
+  "buy": [
+   {
+    "shop": "Adafruit",
+    "url": "https://www.adafruit.com/product/758",
+    "price": 3.95,
+    "stock": false,
+    "checked": "2026-11-14"
+   },
+   {
+    "shop": "Amazon",
+    "url": "https://www.amazon.com/s?k=jumper+wires+male+to+male",
+    "search": true
+   }
+  ]
  },
  "usb-cable": {
   "name": "USB-C cable that carries data",
@@ -37,32 +107,108 @@
  "lens": {
   "name": "Plano-convex lens, 20 mm wide, about 50 mm focal length",
   "what": "A small magnifying lens.",
-  "price": 5
+  "price": 5,
+  "buy": [
+   {
+    "shop": "Amazon",
+    "url": "https://www.amazon.com/s?k=plano+convex+lens+20mm+diameter+50mm+focal+length",
+    "search": true
+   },
+   {
+    "shop": "eBay",
+    "url": "https://www.ebay.com/sch/i.html?_nkw=plano+convex+lens+20mm+50mm+focal+length",
+    "search": true
+   }
+  ]
  },
  "mirror": {
   "name": "First-surface mirror, about 25 by 20 mm",
   "what": "A mirror with the shiny part on the front.",
-  "price": 8
+  "price": 8,
+  "buy": [
+   {
+    "shop": "Amazon",
+    "url": "https://www.amazon.com/s?k=first+surface+mirror+small",
+    "search": true
+   },
+   {
+    "shop": "eBay",
+    "url": "https://www.ebay.com/sch/i.html?_nkw=first+surface+mirror+25mm",
+    "search": true
+   }
+  ]
  },
  "beam-splitter": {
   "name": "Beam splitter, 30 by 30 mm, 50/50",
   "what": "Glass that is half mirror and half window.",
-  "price": 17
+  "price": 17,
+  "buy": [
+   {
+    "shop": "Amazon",
+    "url": "https://www.amazon.com/s?k=beam+splitter+plate+50%2F50+30mm",
+    "search": true
+   },
+   {
+    "shop": "eBay",
+    "url": "https://www.ebay.com/sch/i.html?_nkw=beam+splitter+plate+50%2F50+30mm",
+    "search": true
+   }
+  ]
  },
  "bno085": {
   "name": "Adafruit BNO085 (product 4754)",
   "what": "A motion sensor. It knows which way it points.",
-  "price": 27
+  "price": 30,
+  "buy": [
+   {
+    "shop": "Adafruit",
+    "url": "https://www.adafruit.com/product/4754",
+    "price": 29.5,
+    "stock": true,
+    "checked": "2026-11-14"
+   },
+   {
+    "shop": "Amazon",
+    "url": "https://www.amazon.com/s?k=Adafruit+BNO085+4754",
+    "search": true
+   }
+  ]
  },
  "qwiic-cable": {
   "name": "STEMMA QT (Qwiic) to jumper-pin cable",
   "what": "Plugs into the motion sensor. No soldering.",
-  "price": 1
+  "price": 1,
+  "buy": [
+   {
+    "shop": "Adafruit",
+    "url": "https://www.adafruit.com/product/4209",
+    "price": 0.95,
+    "stock": false,
+    "checked": "2026-11-14"
+   },
+   {
+    "shop": "Amazon",
+    "url": "https://www.amazon.com/s?k=STEMMA+QT+Qwiic+to+male+header+cable",
+    "search": true
+   }
+  ]
  },
  "mics": {
   "name": "4 INMP441 microphones, pins already soldered",
   "what": "Check the listing says the pins are soldered on.",
-  "price": 12
+  "price": 12,
+  "buy": [
+   {
+    "shop": "Amazon",
+    "url": "https://www.amazon.com/s?k=INMP441+I2S+microphone+module+soldered+headers",
+    "search": true
+   },
+   {
+    "shop": "eBay",
+    "url": "https://www.ebay.com/sch/i.html?_nkw=INMP441+microphone+module+soldered",
+    "search": true
+   }
+  ]
  },
  "frames": {
   "name": "Glasses you do not mind taping things to",
@@ -72,21 +218,107 @@
  "lipo": {
   "name": "LiPo battery, 500 mAh, with a protection circuit",
   "what": "A flat rechargeable battery.",
-  "price": 5
+  "price": 8,
+  "buy": [
+   {
+    "shop": "Adafruit",
+    "url": "https://www.adafruit.com/product/1578",
+    "price": 7.95,
+    "stock": true,
+    "checked": "2026-11-14"
+   },
+   {
+    "shop": "Amazon",
+    "url": "https://www.amazon.com/s?k=3.7V+500mAh+LiPo+battery+protection+JST+PH+2.0",
+    "search": true
+   }
+  ]
  },
  "switch": {
   "name": "Small slide switch and thin wire",
   "what": "An on and off switch.",
-  "price": 3
+  "price": 1,
+  "buy": [
+   {
+    "shop": "Adafruit",
+    "url": "https://www.adafruit.com/product/805",
+    "price": 0.95,
+    "stock": true,
+    "checked": "2026-11-14"
+   },
+   {
+    "shop": "Amazon",
+    "url": "https://www.amazon.com/s?k=mini+slide+switch+SPDT",
+    "search": true
+   }
+  ]
  },
  "display-glasses": {
   "name": "Display glasses with a USB-C cable (Rokid Max, Xreal Air, Viture), used",
   "what": "A two-eye screen you wear. It plugs into the iPhone.",
-  "price": 150
+  "price": 150,
+  "buy": [
+   {
+    "shop": "eBay",
+    "url": "https://www.ebay.com/sch/i.html?_nkw=Rokid+Max+AR+glasses&LH_ItemCondition=3000",
+    "search": true,
+    "label": "Rokid Max on eBay"
+   },
+   {
+    "shop": "eBay",
+    "url": "https://www.ebay.com/sch/i.html?_nkw=Xreal+Air+AR+glasses&LH_ItemCondition=3000",
+    "search": true,
+    "label": "Xreal Air on eBay"
+   },
+   {
+    "shop": "eBay",
+    "url": "https://www.ebay.com/sch/i.html?_nkw=Viture+One+XR+glasses&LH_ItemCondition=3000",
+    "search": true,
+    "label": "Viture One on eBay"
+   }
+  ]
  },
  "respeaker-flex": {
   "name": "Seeed reSpeaker Flex XVF3800 Linear-4 with XIAO ESP32S3",
   "what": "Four microphones on a strip, with a chip that finds voice direction itself.",
-  "price": 61
+  "price": 65,
+  "buy": [
+   {
+    "shop": "Seeed",
+    "url": "https://www.seeedstudio.com/reSpeaker-Flex-XVF3800-Linear-4-with-XIAO-ESP32S3-p-6736.html",
+    "price": 64.99,
+    "stock": true,
+    "checked": "2026-11-14"
+   }
+  ]
+ },
+ "jumpers-fm": {
+  "name": "Jumper wires, female to male, 15 cm",
+  "what": "A socket on one end and a pin on the other. They reach from the microphones to the breadboard.",
+  "price": 4,
+  "buy": [
+   {
+    "shop": "Adafruit",
+    "url": "https://www.adafruit.com/product/826",
+    "price": 3.95,
+    "stock": true,
+    "checked": "2026-11-14"
+   },
+   {
+    "shop": "Amazon",
+    "url": "https://www.amazon.com/s?k=jumper+wires+female+to+male",
+    "search": true
+   }
+  ]
+ },
+ "ruler": {
+  "name": "A 15 cm ruler, or a strip of stiff card that long",
+  "what": "The microphones are taped along it.",
+  "price": 0
+ },
+ "cap": {
+  "name": "A cap with a stiff brim",
+  "what": "Carries the ruler and the breadboard until you solder.",
+  "price": 0
  }
 }

@@ -39,7 +39,7 @@ Pod total about $60 to $70; with used glasses about $180 to $250.
 
 | Part | Why | Source | Price |
 |---|---|---|---|
-| Seeed reSpeaker Flex XVF3800 Linear-4 with XIAO ESP32S3 | Four microphones on a strip (about 11 cm, joined by a 20 cm ribbon) plus a chip that already finds voice direction and cleans up noise | Seeed | $60.90 |
+| Seeed reSpeaker Flex XVF3800 Linear-4 with XIAO ESP32S3 | Four microphones on a strip (about 11 cm, joined by a 20 cm ribbon) plus a chip that already finds voice direction and cleans up noise | Seeed | $64.99 |
 | Adafruit BNO085 | Head direction | Adafruit | $29.50 |
 | Battery, wire, clips | | | $10 |
 | Used display glasses | As above | | $120 to $180 |

@@ -2,3 +2,4 @@
 .vscode/
 test_doa
 *.o
+__pycache__/

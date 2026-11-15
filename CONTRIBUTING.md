@@ -25,10 +25,26 @@ different parts, a different display, a different board? That is a recipe.
    | `by` | Your name or handle |
    | `soldering` | `none`, `last step`, `some` or `yes` |
    | `gives` | What a builder ends up with, from the list in `scripts/check.py` |
-   | `parts`, `optional` | Part ids from `parts.json`. Add new parts there, with a plain-words "what" and a rough price |
+   | `parts`, `optional` | Part ids from `parts.json`. Add new parts there, with a plain-words "what", a rough price, and a `buy` list (see below) |
    | `lessons` | Which of the guide's lessons apply, in order. Leave empty if none fit yet |
    | `notes` | What is different, what was hard, what is untested |
    | `builds` | `{"who": "...", "date": "2026-11-14", "result": "..."}` for each person who built it |
+
+   A part's `buy` list says where to get it, best shop first. Give the exact
+   product page when one maker sells it, and a search link when any brand
+   will do:
+
+   ```json
+   "buy": [
+    {"shop": "Adafruit", "url": "https://www.adafruit.com/product/4754"},
+    {"shop": "Amazon", "url": "https://www.amazon.com/s?k=BNO085", "search": true}
+   ]
+   ```
+
+   `python3 scripts/find_parts.py` then reads the price and stock from
+   Adafruit and Seeed product pages and fills them in. The guide shows a
+   buy button for each part and picks the first shop that has it. No
+   affiliate or tracking links, please.
 
 3. Run `python3 scripts/check.py`. It checks your recipe and rebuilds
    `recipes/index.json`. Commit both.

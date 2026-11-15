@@ -60,6 +60,26 @@ int main(void) {
   for (int i = 0; i < N; i++) { fl[i] = 3000 * frand(); fr[i] = 3000 * frand(); rl[i] = 3000 * frand(); rr[i] = 3000 * frand(); }
   if (!isnan(doa_bearing(fl, fr, rl, rr, N, FS, W, D, 0.3f, NULL))) { failures++; printf("FAIL noise got a bearing\n"); }
 
+  // Four microphones in a row, 4 cm apart: left and right only.
+  worst = 0;
+  for (int angle = -75; angle <= 75; angle += 15) {
+    for (int trial = 0; trial < 4; trial++) {
+      make_source();
+      float sx = sinf(angle / 57.29578f);
+      float px[4] = {-0.06f, 0.06f, -0.02f, 0.02f};        // outer left, outer right, inner left, inner right
+      int16_t *mic[4] = {fl, fr, rl, rr};
+      for (int m = 0; m < 4; m++) heard(mic[m], -(px[m] * sx) / DOA_SPEED_OF_SOUND * FS, 300);
+      float q;
+      float got = doa_row(fl, fr, rl, rr, N, FS, 0.12f, 0.04f, 0.3f, &q);
+      float err = isnan(got) ? 999 : fabsf(got - angle);
+      if (err > worst) worst = err;
+      if (err > 10) { failures++; printf("FAIL row angle %d got %.1f quality %.2f\n", angle, got, q); }
+    }
+  }
+  printf("row: worst error %.1f degrees over 44 trials\n", worst);
+  for (int i = 0; i < N; i++) { fl[i] = 3000 * frand(); fr[i] = 3000 * frand(); rl[i] = 3000 * frand(); rr[i] = 3000 * frand(); }
+  if (!isnan(doa_row(fl, fr, rl, rr, N, FS, 0.12f, 0.04f, 0.3f, NULL))) { failures++; printf("FAIL row: noise got a bearing\n"); }
+
   // Voice detection: quiet, then loud.
   float floor_rms = 0;
   for (int i = 0; i < N; i++) fl[i] = 60 * frand();
