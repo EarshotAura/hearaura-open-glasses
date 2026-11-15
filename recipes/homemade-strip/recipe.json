@@ -41,5 +41,8 @@
   "rowwear"
  ],
  "notes": "Nobody has built it yet. The direction sums for a row are tested on simulated sound, and the firmware builds, but it has not run on a board. A straight row of microphones tells left from right, not ahead from behind. The little screen is optional but makes the checks much easier. The display glasses need an iPhone that sends video over USB-C (iPhone 15 or later, except iPhone Air and 16e).",
- "builds": []
+ "builds": [],
+ "works_with": [
+  "HearAura on iPhone"
+ ]
 }

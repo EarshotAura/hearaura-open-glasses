@@ -1,8 +1,13 @@
 # HearAura open glasses
 
-Glasses you build yourself that show live captions from the
-[HearAura](https://hearaura.app) iPhone app, and, with a few more parts,
-tell where each speaker is.
+Glasses you build yourself that show live captions, and, with a few more
+parts, tell where each speaker is.
+
+The first app that drives them is [HearAura](https://hearaura.app) on
+iPhone. The link between app and glasses is open and small, so they are not
+tied to it: any phone, laptop or pocket computer can send them text, and
+the board can do more of its own thinking over time. See
+[`hosts/`](hosts/README.md) and [`docs/PROTOCOL.md`](docs/PROTOCOL.md).
 
 **Want to build a pair?** Use the interactive guide, Caption Glasses 101:
 https://hearaura.app/build-glasses/ . It asks what parts you have, picks a
@@ -39,6 +44,7 @@ one, tell us: that is the most useful thing you can add.
 | `docs/PROTOCOL.md` | The Bluetooth link between the glasses and HearAura |
 | `docs/DESIGN-NOTES.md` | Why the parts were chosen, wiring, and what "3D" honestly means |
 | `tests/test_doa.c` | Runs the direction sums on simulated sound |
+| `hosts/` | Apps that can drive the glasses, and a small example for a laptop |
 | `scripts/check.py` | Checks every recipe and rebuilds `recipes/index.json` |
 | `scripts/find_parts.py` | Looks each part up at its shops and writes back today's price and whether it is in stock |
 

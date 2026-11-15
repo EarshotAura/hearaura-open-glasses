@@ -57,6 +57,8 @@ def main():
         for lesson in recipe.get("lessons", []):
             if lesson not in LESSONS:
                 say(f"lesson \"{lesson}\" is not one the guide has: {LESSONS}")
+        if "works_with" in recipe and not (isinstance(recipe["works_with"], list) and recipe["works_with"]):
+            say("\"works_with\" must be a list of hosts, like [\"HearAura on iPhone\"]; leave it out if any host will do")
         if recipe.get("status") == "built" and not recipe.get("builds"):
             say("status is \"built\" but \"builds\" is empty: add who built it and when")
         recipes.append(recipe)

@@ -14,5 +14,8 @@
  "optional": [],
  "lessons": [],
  "notes": "Anything a builder should know: what is different, what was hard, what is untested.",
- "builds": []
+ "builds": [],
+ "works_with": [
+  "HearAura on iPhone"
+ ]
 }

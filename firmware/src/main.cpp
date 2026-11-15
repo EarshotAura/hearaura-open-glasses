@@ -71,6 +71,8 @@ static const uint8_t STRIP_ADDRESS = 0x2C;
 static const char *SERVICE  = "8E7F1A50-0871-4A2C-9D4B-6A1B5C0E0001";
 static const char *CAPTIONS = "8E7F1A50-0871-4A2C-9D4B-6A1B5C0E0002";
 static const char *SENSORS  = "8E7F1A50-0871-4A2C-9D4B-6A1B5C0E0003";
+static const char *ABOUT    = "8E7F1A50-0871-4A2C-9D4B-6A1B5C0E0005";
+static const char *FIRMWARE = "0.4.0";
 
 static U8G2_SSD1306_128X64_NONAME_F_HW_I2C oled(U8G2_R0, U8X8_PIN_NONE);
 static Adafruit_BNO08x imu(-1);
@@ -121,9 +123,28 @@ class CaptionWrites : public NimBLECharacteristicCallbacks {
     if (kind == 1) liveText = pendingText;
     else if (kind == 2) { lastFinal = pendingText; liveText = ""; }
     else if (kind == 3) { liveText = ""; lastFinal = ""; speaker = 0; }
+    // A note: text that nobody said (a translation, an answer, an alert).
+    else if (kind == 4) { lastFinal = pendingText; liveText = ""; speaker = 0; captionBearingKnown = false; }
+    // Any other kind is from a newer app: ignored, as the link asks.
     pendingText = "";
     lastCaptionAt = millis();
     dirty = true;
+  }
+};
+
+// Any app can ask what these glasses are before deciding what to send.
+class AboutReads : public NimBLECharacteristicCallbacks {
+  void onRead(NimBLECharacteristic *c) override {
+    const char *mics = hasStrip ? "strip" : hasFrontMics && hasRearMics ? (micsInRow ? "row" : "corners")
+                       : hasFrontMics ? "pair" : "none";
+    String ai = "";
+    if (hasStrip || hasFrontMics) ai += "\"voice-direction\"";
+    if (hasCamera) ai += String(ai.length() ? "," : "") + "\"face-distance\"";
+    String about = String("{\"link\":1,\"firmware\":\"") + FIRMWARE + "\",\"screen\":" +
+                   (hasScreen ? "[128,64]" : "null") + ",\"motion\":" + (hasMotion ? "true" : "false") +
+                   ",\"mics\":\"" + mics + "\",\"camera\":" + (hasCamera ? "true" : "false") +
+                   ",\"kinds\":[1,2,3,4],\"ai\":[" + ai + "]}";
+    c->setValue(std::string(about.c_str()));
   }
 };
 
@@ -137,6 +158,7 @@ static void startLink() {
       service->createCharacteristic(CAPTIONS, NIMBLE_PROPERTY::WRITE_NR | NIMBLE_PROPERTY::WRITE);
   captions->setCallbacks(new CaptionWrites());
   sensorPort = service->createCharacteristic(SENSORS, NIMBLE_PROPERTY::NOTIFY);
+  service->createCharacteristic(ABOUT, NIMBLE_PROPERTY::READ)->setCallbacks(new AboutReads());
   service->start();
   NimBLEAdvertising *advertising = NimBLEDevice::getAdvertising();
   advertising->addServiceUUID(SERVICE);

@@ -25,6 +25,7 @@ different parts, a different display, a different board? That is a recipe.
    | `by` | Your name or handle |
    | `soldering` | `none`, `last step`, `some` or `yes` |
    | `gives` | What a builder ends up with, from the list in `scripts/check.py`. The guide's chooser sorts recipes by these and by `soldering`, so be exact: `ahead-behind` only if it can tell a voice in front from one behind |
+   | `works_with` | Optional. Leave it out if any host that speaks the link will do. List hosts only when the recipe truly needs one, as bought display glasses need HearAura on iPhone to draw on them |
    | `parts`, `optional` | Part ids from `parts.json`. Add new parts there, with a plain-words "what", a rough price, and a `buy` list (see below) |
    | `lessons` | Which of the guide's lessons apply, in order. Leave empty if none fit yet |
    | `notes` | What is different, what was hard, what is untested |

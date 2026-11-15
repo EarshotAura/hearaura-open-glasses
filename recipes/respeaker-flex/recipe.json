@@ -30,5 +30,8 @@
   "stripwear"
  ],
  "notes": "Written from Seeed's documents; nobody has built it. The firmware asks the strip's chip for the voice angle over I2C (address 0x2C, DOA_VALUE) and builds cleanly, but has not run on this board. Not yet checked: which end of the strip counts as 0 degrees, whether the chip needs its sound clock running, where best to solder the motion sensor (the board has no plug for it), the size of the main board, and whether a small battery can be fitted. A straight line of microphones cannot tell ahead from behind. The display glasses need an iPhone that sends video over USB-C (iPhone 15 or later, except iPhone Air and 16e).",
- "builds": []
+ "builds": [],
+ "works_with": [
+  "HearAura on iPhone"
+ ]
 }

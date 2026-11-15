@@ -41,5 +41,8 @@
   "wear"
  ],
  "notes": "The display glasses plug into the iPhone and need an iPhone that sends video over USB-C (iPhone 15 or later, except iPhone Air and 16e). The pod's little screen is optional but makes the checks much easier.",
- "builds": []
+ "builds": [],
+ "works_with": [
+  "HearAura on iPhone"
+ ]
 }
