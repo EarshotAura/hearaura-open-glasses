@@ -22,7 +22,7 @@ recipe merged here shows up there.
 | [Caption screen](recipes/screen-only/recipe.json) | A small screen showing captions. About an hour, no soldering | designed |
 | [One-eye caption glasses](recipes/one-eye/recipe.json) | Captions in front of one eye; knows where voices are and how far | designed |
 | [Display glasses with a sensor pod](recipes/display-glasses-pod/recipe.json) | Bought display glasses show captions beside each speaker | designed |
-| [Ready-made microphone strip](recipes/respeaker-flex/recipe.json) | The pod with less wiring | idea, not started |
+| [Ready-made microphone strip](recipes/respeaker-flex/recipe.json) | The pod with less wiring | designed, not yet built |
 
 "Designed" means written down and not yet built by anyone. If you build
 one, tell us: that is the most useful thing you can add.

@@ -87,6 +87,6 @@
  "respeaker-flex": {
   "name": "Seeed reSpeaker Flex XVF3800 Linear-4 with XIAO ESP32S3",
   "what": "Four microphones on a strip, with a chip that finds voice direction itself.",
-  "price": 58
+  "price": 61
  }
 }

@@ -1,4 +1,5 @@
-// HearAura open glasses: firmware for a Seeed XIAO ESP32-S3 (Sense).
+// HearAura open glasses: firmware for a Seeed XIAO ESP32-S3 (Sense), and for
+// the XIAO ESP32-S3 on a Seeed reSpeaker Flex XVF3800 board.
 //
 // One program for every stage of the build. At start-up it looks for each
 // part and uses whatever it finds, so nothing here has to be edited as the
@@ -7,6 +8,9 @@
 //   motion sensor (BNO085 on I2C)     reports which way the head points
 //   four I2S microphones              finds where a voice is
 //   camera (on the Sense board)       finds the speaker's height and distance
+//   reSpeaker Flex strip (XVF3800)    finds where a voice is by itself; when
+//                                     it is there, the four microphones and
+//                                     the camera are not looked for
 // It talks to the HearAura iPhone app over the open link in docs/PROTOCOL.md.
 //
 // Wiring (XIAO pin = GPIO):
@@ -14,6 +18,11 @@
 //   Mics  D0=1 clock (SCK), D1=2 word select (WS), all four microphones
 //         D2=3 data from the front pair, D10=9 data from the rear pair
 //         left microphone of a pair: L/R to GND; right: L/R to 3V3
+//
+// On a reSpeaker Flex board the XIAO is already joined to the strip's chip:
+//   I2C   the same D4/D5 (this is Wire's default; Seeed does not print it)
+//   I2S   D9=8 clock, D8=7 word select, D6=43 sound from the chip
+// so a motion sensor added to D4/D5 shares the bus with the chip (0x2C).
 //
 // Camera pictures never leave the board: only angles and a distance do.
 // Status: builds cleanly; not yet run on hardware (see README.md).
@@ -45,6 +54,9 @@ static const int REAR_OFFSET_SAMPLES = 0;
 
 static const int PIN_SDA = 5, PIN_SCL = 6;
 static const int PIN_MIC_CLOCK = 1, PIN_MIC_WS = 2, PIN_MIC_FRONT = 3, PIN_MIC_REAR = 9;
+// reSpeaker Flex: fixed by that board.
+static const int PIN_STRIP_CLOCK = 8, PIN_STRIP_WS = 7, PIN_STRIP_SOUND = 43;
+static const uint8_t STRIP_ADDRESS = 0x2C;
 
 // ---- The link (see docs/PROTOCOL.md) --------------------------------------------
 
@@ -58,6 +70,7 @@ static NimBLECharacteristic *sensorPort = nullptr;
 
 // What was found at start-up.
 static bool hasScreen = false, hasMotion = false, hasFrontMics = false, hasRearMics = false, hasCamera = false;
+static bool hasStrip = false;
 static volatile bool phoneConnected = false;
 
 // Captions from the phone.
@@ -140,12 +153,12 @@ static void drawStatus() {
   oled.setCursor(0, 24);  oled.print(phoneConnected ? "phone: connected" : "phone: waiting");
   oled.setCursor(0, 36);  oled.print("motion: "); oled.print(hasMotion ? "yes" : "no");
   oled.setCursor(0, 48);  oled.print("ears: ");
-  oled.print(hasFrontMics && hasRearMics ? "4" : hasFrontMics ? "2 (front)" : "none");
+  oled.print(hasStrip ? "strip" : hasFrontMics && hasRearMics ? "4" : hasFrontMics ? "2 (front)" : "none");
   oled.setCursor(72, 36); oled.print("eye: "); oled.print(hasCamera ? "yes" : "no");
   oled.setCursor(0, 60);
   if (millis() - voiceAt < 1500 && !isnan(voiceDeg)) {
     oled.print("voice: "); oled.print(arrowFor(voiceDeg)); oled.print(" "); oled.print((int)voiceDeg);
-  } else if (hasFrontMics) {
+  } else if (hasFrontMics || hasStrip) {
     oled.print("voice: (listening)");
   }
 }
@@ -280,6 +293,72 @@ static void soundTask(void *) {
   }
 }
 
+// ---- reSpeaker Flex strip --------------------------------------------------
+
+// The strip's chip is set up to have its sound clocked out by the XIAO. It
+// is not known whether the chip keeps listening without that clock, so the
+// clock is kept running and the sound is thrown away: only the angle the
+// chip works out is used.
+static void stripClockTask(void *) {
+  static int32_t scrap[512];
+  for (;;) {
+    size_t got = 0;
+    i2s_read(I2S_NUM_0, scrap, sizeof(scrap), &got, portMAX_DELAY);
+  }
+}
+
+static void startStrip() {
+  i2s_config_t cfg = {};
+  cfg.mode = (i2s_mode_t)(I2S_MODE_MASTER | I2S_MODE_RX);
+  cfg.sample_rate = 16000;
+  cfg.bits_per_sample = I2S_BITS_PER_SAMPLE_32BIT;
+  cfg.channel_format = I2S_CHANNEL_FMT_RIGHT_LEFT;
+  cfg.communication_format = I2S_COMM_FORMAT_STAND_I2S;
+  cfg.dma_buf_count = 4;
+  cfg.dma_buf_len = 256;
+  i2s_pin_config_t pins = {};
+  pins.mck_io_num = I2S_PIN_NO_CHANGE;
+  pins.bck_io_num = PIN_STRIP_CLOCK;
+  pins.ws_io_num = PIN_STRIP_WS;
+  pins.data_out_num = I2S_PIN_NO_CHANGE;
+  pins.data_in_num = PIN_STRIP_SOUND;
+  i2s_driver_install(I2S_NUM_0, &cfg, 0, NULL);
+  i2s_set_pin(I2S_NUM_0, &pins);
+  xTaskCreatePinnedToCore(stripClockTask, "strip", 4096, NULL, 1, NULL, 1);
+}
+
+// Asks the chip where the voice is (its DOA_VALUE: resource 20, command 18).
+// The answer is a status byte, then the angle in degrees and a "someone is
+// speaking" flag, each two bytes, low byte first.
+static void readStrip() {
+  Wire.beginTransmission(STRIP_ADDRESS);
+  Wire.write(20);
+  Wire.write(18 | 0x80);                       // 0x80: read
+  Wire.write(5);
+  if (Wire.endTransmission() != 0) return;
+  if (Wire.requestFrom(STRIP_ADDRESS, (uint8_t)5) < 5) return;
+  uint8_t status = Wire.read(), b[4];
+  for (int i = 0; i < 4; i++) b[i] = Wire.read();
+  if (status != 0) return;
+  int angle = (b[0] | (b[1] << 8)) % 360;
+  bool speech = (b[2] | (b[3] << 8)) != 0;
+  static unsigned long lastPrint = 0;
+  if (millis() - lastPrint > 300) {
+    lastPrint = millis();
+    Serial.printf("strip says %d degrees, %s\n", angle, speech ? "speech" : "quiet");
+  }
+  if (!speech) return;
+  // A straight row of microphones measures along itself: 0 at one end, 90
+  // straight out, 180 at the other end. It cannot tell ahead from behind, so
+  // anything it puts behind is folded to the front. Which end is 0 has not
+  // been checked: if left and right come out swapped, turn the strip over
+  // so its ends change places.
+  if (angle > 180) angle = 360 - angle;
+  voiceDeg = 90 - angle;
+  voiceAt = millis();
+  dirty = true;
+}
+
 // ---- Reports to the phone --------------------------------------------------
 
 static void put16(uint8_t *at, float value) {
@@ -305,7 +384,7 @@ static void sendReport() {
   if (!sensorPort || sensorPort->getSubscribedCount() == 0) return;
   // A phone only numbers speakers by place when it knows where the head
   // points; without a motion sensor nothing useful can be said.
-  if (!hasMotion && !hasFrontMics) return;
+  if (!hasMotion && !hasFrontMics && !hasStrip) return;
   uint8_t report[12];
   put16(report, yawDeg * 100);
   put16(report + 2, pitchDeg * 100);
@@ -342,27 +421,38 @@ static bool onBus(uint8_t address) {
 void setup() {
   Serial.begin(115200);
   Wire.begin(PIN_SDA, PIN_SCL);
-  Wire.setClock(400000);
+  hasStrip = onBus(STRIP_ADDRESS);
+  // The strip's chip has not been checked at the faster speed.
+  Wire.setClock(hasStrip ? 100000 : 400000);
 
   hasScreen = onBus(0x3C);
   if (hasScreen) oled.begin();
   hasMotion = (onBus(0x4A) && imu.begin_I2C(0x4A)) || (onBus(0x4B) && imu.begin_I2C(0x4B));
   if (hasMotion) imu.enableReport(SH2_ARVR_STABILIZED_RV, 100000);
-  hasCamera = startCamera();
+  // A reSpeaker Flex board has no camera and brings its own microphones.
+  hasCamera = !hasStrip && startCamera();
 
-  startMics();
-  xTaskCreatePinnedToCore(soundTask, "sound", 8192, NULL, 2, NULL, 1);
+  if (hasStrip) {
+    startStrip();
+  } else {
+    startMics();
+    xTaskCreatePinnedToCore(soundTask, "sound", 8192, NULL, 2, NULL, 1);
+  }
   if (hasCamera) xTaskCreatePinnedToCore(cameraTask, "camera", 16384, NULL, 1, NULL, 0);
   startLink();
 
-  Serial.printf("HearAura Glasses. screen:%d motion:%d camera:%d\n", hasScreen, hasMotion, hasCamera);
+  Serial.printf("HearAura Glasses. screen:%d motion:%d camera:%d strip:%d\n", hasScreen, hasMotion, hasCamera, hasStrip);
   draw();
 }
 
 void loop() {
   static unsigned long lastReport = 0, lastDraw = 0;
   readMotion();
-  if (millis() - lastReport >= 100) { lastReport = millis(); sendReport(); }
+  if (millis() - lastReport >= 100) {
+    lastReport = millis();
+    if (hasStrip) readStrip();
+    sendReport();
+  }
   // The status page refreshes on its own so "voice: left" comes and goes.
   if (dirty || millis() - lastDraw > 500) { dirty = false; lastDraw = millis(); draw(); }
   delay(5);

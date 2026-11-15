@@ -2,7 +2,7 @@
  "id": "respeaker-flex",
  "name": "Display glasses with a ready-made microphone strip",
  "summary": "As the sensor pod, with a bought four-microphone strip that finds voice direction itself. Less wiring.",
- "status": "idea",
+ "status": "designed",
  "by": "HearAura",
  "soldering": "some",
  "gives": [
@@ -18,11 +18,17 @@
   "bno085",
   "qwiic-cable",
   "usb-cable",
-  "lipo",
-  "switch"
+  "power-bank"
  ],
  "optional": [],
- "lessons": [],
- "notes": "Not started. The firmware does not support this board yet, the strip's size against a glasses frame is unchecked, and a straight line of microphones cannot tell ahead from behind. A good first recipe for someone to take on.",
+ "lessons": [
+  "plug",
+  "strip",
+  "stripwake",
+  "stripears",
+  "striplook",
+  "stripwear"
+ ],
+ "notes": "Written from Seeed's documents; nobody has built it. The firmware asks the strip's chip for the voice angle over I2C (address 0x2C, DOA_VALUE) and builds cleanly, but has not run on this board. Not yet checked: which end of the strip counts as 0 degrees, whether the chip needs its sound clock running, where best to solder the motion sensor (the board has no plug for it), the size of the main board, and whether a small battery can be fitted. A straight line of microphones cannot tell ahead from behind. The display glasses need an iPhone that sends video over USB-C (iPhone 15 or later, except iPhone Air and 16e).",
  "builds": []
 }
