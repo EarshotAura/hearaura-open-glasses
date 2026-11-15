@@ -15,7 +15,7 @@ STATUS = ["idea", "designed", "partly built", "built"]
 SOLDERING = ["none", "last step", "some", "yes"]
 GIVES = ["captions", "see-through", "two-eye-display", "head-direction", "voice-direction", "distance", "captions-by-speaker"]
 LESSONS = ["parts", "wake", "screen", "cord", "float", "plug", "look", "ears", "eye", "wear",
-           "strip", "stripwake", "stripears", "striplook", "stripwear", "row", "rowwear"]
+           "strip", "stripwake", "stripears", "striplook", "stripwear", "row", "rowwear", "rowglasses"]
 
 def main():
     parts = json.loads((ROOT / "parts.json").read_text())

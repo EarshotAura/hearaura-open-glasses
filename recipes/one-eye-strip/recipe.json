@@ -1,0 +1,49 @@
+{
+ "id": "one-eye-strip",
+ "name": "One-eye caption glasses with a microphone strip",
+ "summary": "Everything homemade: the floating screen in front of one eye, and four microphones in a row along the top of the frames. The row is easier to get working than microphones at four corners.",
+ "status": "designed",
+ "by": "HearAura",
+ "soldering": "last step",
+ "gives": [
+  "captions",
+  "see-through",
+  "head-direction",
+  "voice-direction",
+  "distance"
+ ],
+ "parts": [
+  "xiao-sense",
+  "oled",
+  "grove-cable",
+  "breadboard",
+  "jumpers",
+  "jumpers-fm",
+  "usb-cable",
+  "power-bank",
+  "lens",
+  "mirror",
+  "beam-splitter",
+  "bno085",
+  "qwiic-cable",
+  "mics",
+  "ruler",
+  "frames",
+  "lipo",
+  "switch"
+ ],
+ "optional": [],
+ "lessons": [
+  "parts",
+  "wake",
+  "screen",
+  "cord",
+  "float",
+  "look",
+  "row",
+  "eye",
+  "rowglasses"
+ ],
+ "notes": "Nobody has built it yet. The direction sums for a row are tested on simulated sound and the firmware builds, but it has not run on a board. A straight row of microphones tells left from right, not ahead from behind. The one-eye screen shows the speaker's number and which side they are on; it cannot float a caption beside them.",
+ "builds": []
+}
