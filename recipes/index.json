@@ -469,6 +469,45 @@
    "builds": []
   },
   {
+   "id": "one-eye-flex",
+   "name": "One-eye caption glasses with the ready-made strip",
+   "summary": "The homemade floating screen in front of one eye, with the bought strip doing the listening. Less wiring than four microphones, more soldering than the other strip recipes.",
+   "status": "designed",
+   "by": "HearAura",
+   "soldering": "yes",
+   "gives": [
+    "captions",
+    "see-through",
+    "head-direction",
+    "voice-direction"
+   ],
+   "parts": [
+    "respeaker-flex",
+    "oled",
+    "grove-cable",
+    "lens",
+    "mirror",
+    "beam-splitter",
+    "bno085",
+    "qwiic-cable",
+    "frames",
+    "usb-cable",
+    "power-bank"
+   ],
+   "optional": [],
+   "lessons": [
+    "strip",
+    "stripwake",
+    "stripscreen",
+    "float",
+    "stripears",
+    "striplook",
+    "stripeyewear"
+   ],
+   "notes": "Written from Seeed's documents; nobody has built it. The firmware asks the strip's chip for the voice angle and builds cleanly, but has not run on this board. Not yet checked: which end of the strip counts as 0 degrees, and whether the chip needs its sound clock running. A straight row of microphones cannot tell ahead from behind. The screen and the motion sensor are both soldered to the same four legs of the small board, because this board has no plugs for them; that step is unchecked. The main board's size is not published, so the lessons put it on a cap or collar. No camera on this board, so no distance.",
+   "builds": []
+  },
+  {
    "id": "one-eye-strip",
    "name": "One-eye caption glasses with a microphone strip",
    "summary": "Everything homemade: the floating screen in front of one eye, and four microphones in a row along the top of the frames. The row is easier to get working than microphones at four corners.",
@@ -581,6 +620,68 @@
     "cord"
    ],
    "notes": "Uses the simplest part of the firmware, so it has the best chance of working first time. A plain XIAO ESP32-S3 (no camera) works too.",
+   "builds": []
+  },
+  {
+   "id": "strip-table",
+   "name": "Table captions with the ready-made strip",
+   "summary": "The strip and a small screen stand on the table. The screen shows what is said, each speaker's number, and which side they are on. Nothing to wear.",
+   "status": "designed",
+   "by": "HearAura",
+   "soldering": "some",
+   "gives": [
+    "captions",
+    "voice-direction"
+   ],
+   "parts": [
+    "respeaker-flex",
+    "oled",
+    "grove-cable",
+    "usb-cable",
+    "power-bank"
+   ],
+   "optional": [],
+   "lessons": [
+    "strip",
+    "stripwake",
+    "stripscreen",
+    "stripears",
+    "striptable"
+   ],
+   "notes": "Written from Seeed's documents; nobody has built it. The firmware asks the strip's chip for the voice angle and builds cleanly, but has not run on this board. Not yet checked: which end of the strip counts as 0 degrees, and whether the chip needs its sound clock running. A straight row of microphones cannot tell ahead from behind. The screen's four wires are soldered to the small board, because this board has no plug for it; where best to solder them is unchecked too. A table does not turn, so no motion sensor is needed.",
+   "builds": []
+  },
+  {
+   "id": "strip-table-glasses",
+   "name": "Display glasses with the strip on the table",
+   "summary": "The quickest way to captions beside each speaker: bought display glasses, and the bought strip standing on the table in front of you. No soldering, nothing to build onto the glasses.",
+   "status": "designed",
+   "by": "HearAura",
+   "soldering": "none",
+   "gives": [
+    "captions",
+    "two-eye-display",
+    "voice-direction",
+    "captions-by-speaker"
+   ],
+   "parts": [
+    "display-glasses",
+    "respeaker-flex",
+    "usb-cable",
+    "power-bank"
+   ],
+   "optional": [],
+   "lessons": [
+    "plug",
+    "strip",
+    "stripwake",
+    "stripears",
+    "striptable"
+   ],
+   "notes": "Written from Seeed's documents; nobody has built it. The firmware asks the strip's chip for the voice angle and builds cleanly, but has not run on this board. Not yet checked: which end of the strip counts as 0 degrees, and whether the chip needs its sound clock running. A straight row of microphones cannot tell ahead from behind. Sides are measured from the strip, not from your head: they are right while you sit behind the strip facing the same way it does, and drift when you turn. The display glasses need an iPhone that sends video over USB-C (iPhone 15 or later, except iPhone Air and 16e).",
+   "works_with": [
+    "HearAura on iPhone"
+   ],
    "builds": []
   }
  ]

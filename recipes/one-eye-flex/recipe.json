@@ -1,0 +1,39 @@
+{
+ "id": "one-eye-flex",
+ "name": "One-eye caption glasses with the ready-made strip",
+ "summary": "The homemade floating screen in front of one eye, with the bought strip doing the listening. Less wiring than four microphones, more soldering than the other strip recipes.",
+ "status": "designed",
+ "by": "HearAura",
+ "soldering": "yes",
+ "gives": [
+  "captions",
+  "see-through",
+  "head-direction",
+  "voice-direction"
+ ],
+ "parts": [
+  "respeaker-flex",
+  "oled",
+  "grove-cable",
+  "lens",
+  "mirror",
+  "beam-splitter",
+  "bno085",
+  "qwiic-cable",
+  "frames",
+  "usb-cable",
+  "power-bank"
+ ],
+ "optional": [],
+ "lessons": [
+  "strip",
+  "stripwake",
+  "stripscreen",
+  "float",
+  "stripears",
+  "striplook",
+  "stripeyewear"
+ ],
+ "notes": "Written from Seeed's documents; nobody has built it. The firmware asks the strip's chip for the voice angle and builds cleanly, but has not run on this board. Not yet checked: which end of the strip counts as 0 degrees, and whether the chip needs its sound clock running. A straight row of microphones cannot tell ahead from behind. The screen and the motion sensor are both soldered to the same four legs of the small board, because this board has no plugs for them; that step is unchecked. The main board's size is not published, so the lessons put it on a cap or collar. No camera on this board, so no distance.",
+ "builds": []
+}

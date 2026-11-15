@@ -1,0 +1,29 @@
+{
+ "id": "strip-table",
+ "name": "Table captions with the ready-made strip",
+ "summary": "The strip and a small screen stand on the table. The screen shows what is said, each speaker's number, and which side they are on. Nothing to wear.",
+ "status": "designed",
+ "by": "HearAura",
+ "soldering": "some",
+ "gives": [
+  "captions",
+  "voice-direction"
+ ],
+ "parts": [
+  "respeaker-flex",
+  "oled",
+  "grove-cable",
+  "usb-cable",
+  "power-bank"
+ ],
+ "optional": [],
+ "lessons": [
+  "strip",
+  "stripwake",
+  "stripscreen",
+  "stripears",
+  "striptable"
+ ],
+ "notes": "Written from Seeed's documents; nobody has built it. The firmware asks the strip's chip for the voice angle and builds cleanly, but has not run on this board. Not yet checked: which end of the strip counts as 0 degrees, and whether the chip needs its sound clock running. A straight row of microphones cannot tell ahead from behind. The screen's four wires are soldered to the small board, because this board has no plug for it; where best to solder them is unchecked too. A table does not turn, so no motion sensor is needed.",
+ "builds": []
+}

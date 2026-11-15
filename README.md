@@ -28,6 +28,9 @@ recipe merged here shows up there.
 | [One-eye caption glasses](recipes/one-eye/recipe.json) | Captions in front of one eye; knows where voices are and how far | designed |
 | [Display glasses with a sensor pod](recipes/display-glasses-pod/recipe.json) | Bought display glasses show captions beside each speaker | designed |
 | [Ready-made microphone strip](recipes/respeaker-flex/recipe.json) | The pod with less wiring | designed, not yet built |
+| [Strip on the table, with a screen](recipes/strip-table/recipe.json) | Table-top captions with speaker numbers and sides; nothing to wear | designed, not yet built |
+| [Strip on the table, with display glasses](recipes/strip-table-glasses/recipe.json) | Captions beside each speaker with no soldering | designed, not yet built |
+| [One-eye glasses with the ready-made strip](recipes/one-eye-flex/recipe.json) | The homemade one-eye screen, with the bought strip listening | designed, not yet built |
 | [Homemade microphone strip](recipes/homemade-strip/recipe.json) | The strip, made from four microphones on a ruler; no soldering | designed, not yet built |
 | [One-eye glasses with a microphone strip](recipes/one-eye-strip/recipe.json) | All homemade: the one-eye screen plus the row of microphones | designed, not yet built |
 

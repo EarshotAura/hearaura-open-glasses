@@ -1,0 +1,33 @@
+{
+ "id": "strip-table-glasses",
+ "name": "Display glasses with the strip on the table",
+ "summary": "The quickest way to captions beside each speaker: bought display glasses, and the bought strip standing on the table in front of you. No soldering, nothing to build onto the glasses.",
+ "status": "designed",
+ "by": "HearAura",
+ "soldering": "none",
+ "gives": [
+  "captions",
+  "two-eye-display",
+  "voice-direction",
+  "captions-by-speaker"
+ ],
+ "parts": [
+  "display-glasses",
+  "respeaker-flex",
+  "usb-cable",
+  "power-bank"
+ ],
+ "optional": [],
+ "lessons": [
+  "plug",
+  "strip",
+  "stripwake",
+  "stripears",
+  "striptable"
+ ],
+ "notes": "Written from Seeed's documents; nobody has built it. The firmware asks the strip's chip for the voice angle and builds cleanly, but has not run on this board. Not yet checked: which end of the strip counts as 0 degrees, and whether the chip needs its sound clock running. A straight row of microphones cannot tell ahead from behind. Sides are measured from the strip, not from your head: they are right while you sit behind the strip facing the same way it does, and drift when you turn. The display glasses need an iPhone that sends video over USB-C (iPhone 15 or later, except iPhone Air and 16e).",
+ "works_with": [
+  "HearAura on iPhone"
+ ],
+ "builds": []
+}
